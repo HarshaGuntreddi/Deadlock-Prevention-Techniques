@@ -128,7 +128,7 @@ class DeadlockPreventionTechniques {
         fairLock.unlock();
     }
 
-    // Additional Technique: Resource Ordering with Priority
+    // Resource Ordering with Priority
     void resourceOrderingWithPriority(List<Lock> resources, List<Integer> priorities) {
         List<Lock> sortedResources = new ArrayList<>(resources);
         sortedResources.sort(Comparator.comparingInt(resources::indexOf));
@@ -140,13 +140,232 @@ class DeadlockPreventionTechniques {
         }
     }
 
-    // Additional Technique: Wait-Die Scheme
+    // Wait-Die Scheme
     boolean waitDie(int timestamp, int otherTimestamp) {
         return timestamp < otherTimestamp;
     }
 
-    // Additional Technique: Wound-Wait Scheme
+    // Wound-Wait Scheme
     boolean woundWait(int timestamp, int otherTimestamp) {
         return timestamp > otherTimestamp;
+    }
+
+    // Resource Pooling
+    void resourcePooling(List<Lock> resources) {
+        for (Lock resource : resources) {
+            resource.lock();
+        }
+        for (Lock resource : resources) {
+            resource.unlock();
+        }
+    }
+
+    // Hierarchical Locking
+    void hierarchicalLocking(Lock parent, Lock child) {
+        parent.lock();
+        child.lock();
+        child.unlock();
+        parent.unlock();
+    }
+
+    // Two-Phase Locking
+    void twoPhaseLocking(List<Lock> resources) {
+        for (Lock resource : resources) {
+            resource.lock();
+        }
+        for (Lock resource : resources) {
+            resource.unlock();
+        }
+    }
+
+    // Lock Timeout with Retry
+    boolean lockTimeoutWithRetry(Lock resource, long timeoutMs, int retries) throws InterruptedException {
+        for (int i = 0; i < retries; i++) {
+            if (resource.tryLock(timeoutMs, TimeUnit.MILLISECONDS)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Deadlock Detection with Timeout
+    boolean detectDeadlockWithTimeout(long timeoutMs) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < timeoutMs) {
+            if (detectDeadlock()) {
+                return true;
+            }
+            Thread.sleep(100);
+        }
+        return false;
+    }
+
+    // Resource Reservation
+    boolean reserveResources(List<Lock> resources) {
+        for (Lock resource : resources) {
+            if (!resource.tryLock()) {
+                for (Lock acquired : resources) {
+                    if (acquired.isHeldByCurrentThread()) {
+                        acquired.unlock();
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Priority Inheritance
+    void priorityInheritance(Lock highPriorityLock, Lock lowPriorityLock) {
+        highPriorityLock.lock();
+        lowPriorityLock.lock();
+        lowPriorityLock.unlock();
+        highPriorityLock.unlock();
+    }
+
+    // Banker's Algorithm (Deadlock Avoidance)
+    boolean bankersAlgorithm(int[] available, int[][] max, int[][] allocation, int[][] need) {
+        int n = allocation.length;
+        int m = available.length;
+        boolean[] finish = new boolean[n];
+        int[] work = Arrays.copyOf(available, m);
+
+        while (true) {
+            boolean found = false;
+            for (int i = 0; i < n; i++) {
+                if (!finish[i] && canAllocate(need[i], work)) {
+                    for (int j = 0; j < m; j++) {
+                        work[j] += allocation[i][j];
+                    }
+                    finish[i] = true;
+                    found = true;
+                }
+            }
+            if (!found) {
+                break;
+            }
+        }
+
+        for (boolean f : finish) {
+            if (!f) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean canAllocate(int[] need, int[] work) {
+        for (int i = 0; i < need.length; i++) {
+            if (need[i] > work[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Aging Prevention
+    void agingPrevention(List<Lock> resources, int ageThreshold) {
+        for (Lock resource : resources) {
+            if (resource.tryLock()) {
+                resource.unlock();
+            }
+        }
+    }
+
+    // Random Backoff Prevention
+    void randomBackoffPrevention(Lock resource) throws InterruptedException {
+        Random random = new Random();
+        while (!resource.tryLock()) {
+            Thread.sleep(random.nextInt(100));
+        }
+        resource.unlock();
+    }
+
+    // Exponential Backoff Prevention
+    void exponentialBackoffPrevention(Lock resource) throws InterruptedException {
+        int backoff = 1;
+        while (!resource.tryLock()) {
+            Thread.sleep(backoff);
+            backoff *= 2;
+        }
+        resource.unlock();
+    }
+
+    // Fixed Backoff Prevention
+    void fixedBackoffPrevention(Lock resource) throws InterruptedException {
+        while (!resource.tryLock()) {
+            Thread.sleep(100);
+        }
+        resource.unlock();
+    }
+
+    // Priority Ceiling Prevention
+    void priorityCeilingPrevention(Lock resource, int ceiling) {
+        if (resource.tryLock()) {
+            resource.unlock();
+        }
+    }
+
+    // Resource Limiting Prevention
+    void resourceLimitingPrevention(List<Lock> resources, int limit) {
+        for (int i = 0; i < limit; i++) {
+            resources.get(i).lock();
+        }
+        for (int i = 0; i < limit; i++) {
+            resources.get(i).unlock();
+        }
+    }
+
+    // Timeout and Rollback
+    boolean timeoutAndRollback(Lock resource, long timeoutMs) throws InterruptedException {
+        if (resource.tryLock(timeoutMs, TimeUnit.MILLISECONDS)) {
+            resource.unlock();
+            return true;
+        }
+        return false;
+    }
+
+    // Resource Pre-allocation
+    boolean resourcePreallocation(List<Lock> resources) {
+        for (Lock resource : resources) {
+            if (!resource.tryLock()) {
+                for (Lock acquired : resources) {
+                    if (acquired.isHeldByCurrentThread()) {
+                        acquired.unlock();
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Resource Reclamation
+    void resourceReclamation(List<Lock> resources) {
+        for (Lock resource : resources) {
+            if (resource.tryLock()) {
+                resource.unlock();
+            }
+        }
+    }
+
+    // Resource Partitioning
+    void resourcePartitioning(List<Lock> resources, int partitions) {
+        for (int i = 0; i < partitions; i++) {
+            resources.get(i).lock();
+        }
+        for (int i = 0; i < partitions; i++) {
+            resources.get(i).unlock();
+        }
+    }
+
+    // Resource Sharing
+    void resourceSharing(List<Lock> resources) {
+        for (Lock resource : resources) {
+            resource.lock();
+        }
+        for (Lock resource : resources) {
+            resource.unlock();
+        }
     }
 }
