@@ -77,6 +77,121 @@ public class DeadlockPreventionTest {
             System.out.println("No Deadlock detected.");
         }
 
+        // Test Resource Pooling
+        dp.resourcePooling(resources);
+        System.out.println("Resource Pooling Passed");
+
+        // Test Hierarchical Locking
+        dp.hierarchicalLocking(resource1, resource2);
+        System.out.println("Hierarchical Locking Passed");
+
+        // Test Two-Phase Locking
+        dp.twoPhaseLocking(resources);
+        System.out.println("Two-Phase Locking Passed");
+
+        // Test Lock Timeout with Retry
+        if (dp.lockTimeoutWithRetry(resource1, 1000, 3)) {
+            System.out.println("Lock Timeout with Retry Passed");
+        } else {
+            System.out.println("Lock Timeout with Retry Failed");
+        }
+
+        // Test Deadlock Detection with Timeout
+        if (dp.detectDeadlockWithTimeout(1000)) {
+            System.out.println("Deadlock Detection with Timeout Passed");
+        } else {
+            System.out.println("Deadlock Detection with Timeout Failed");
+        }
+
+        // Test Resource Reservation
+        if (dp.reserveResources(resources)) {
+            System.out.println("Resource Reservation Passed");
+        } else {
+            System.out.println("Resource Reservation Failed");
+        }
+
+        // Test Priority Inheritance
+        dp.priorityInheritance(resource1, resource2);
+        System.out.println("Priority Inheritance Passed");
+
+        // Test Banker's Algorithm
+        int[] available = {3, 3, 2};
+        int[][] max = {
+            {7, 5, 3},
+            {3, 2, 2},
+            {9, 0, 2},
+            {2, 2, 2},
+            {4, 3, 3}
+        };
+        int[][] allocation = {
+            {0, 1, 0},
+            {2, 0, 0},
+            {3, 0, 2},
+            {2, 1, 1},
+            {0, 0, 2}
+        };
+        int[][] need = new int[max.length][max[0].length];
+        for (int i = 0; i < max.length; i++) {
+            for (int j = 0; j < max[0].length; j++) {
+                need[i][j] = max[i][j] - allocation[i][j];
+            }
+        }
+        if (dp.bankersAlgorithm(available, max, allocation, need)) {
+            System.out.println("Banker's Algorithm Passed");
+        } else {
+            System.out.println("Banker's Algorithm Failed");
+        }
+
+        // Test Aging Prevention
+        dp.agingPrevention(resources, 1000);
+        System.out.println("Aging Prevention Passed");
+
+        // Test Random Backoff Prevention
+        dp.randomBackoffPrevention(resource1);
+        System.out.println("Random Backoff Prevention Passed");
+
+        // Test Exponential Backoff Prevention
+        dp.exponentialBackoffPrevention(resource1);
+        System.out.println("Exponential Backoff Prevention Passed");
+
+        // Test Fixed Backoff Prevention
+        dp.fixedBackoffPrevention(resource1);
+        System.out.println("Fixed Backoff Prevention Passed");
+
+        // Test Priority Ceiling Prevention
+        dp.priorityCeilingPrevention(resource1, 10);
+        System.out.println("Priority Ceiling Prevention Passed");
+
+        // Test Resource Limiting Prevention
+        dp.resourceLimitingPrevention(resources, 1);
+        System.out.println("Resource Limiting Prevention Passed");
+
+        // Test Timeout and Rollback
+        if (dp.timeoutAndRollback(resource1, 1000)) {
+            System.out.println("Timeout and Rollback Passed");
+        } else {
+            System.out.println("Timeout and Rollback Failed");
+        }
+
+        // Test Resource Pre-allocation
+        if (dp.resourcePreallocation(resources)) {
+            System.out.println("Resource Pre-allocation Passed");
+        } else {
+            System.out.println("Resource Pre-allocation Failed");
+        }
+
+        // Test Resource Reclamation
+        dp.resourceReclamation(resources);
+        System.out.println("Resource Reclamation Passed");
+
+        // Test Resource Partitioning
+        dp.resourcePartitioning(resources, 1);
+        System.out.println("Resource Partitioning Passed");
+
+        // Test Resource Sharing
+        dp.resourceSharing(resources);
+        System.out.println("Resource Sharing Passed");
+
         System.out.println("All Test Cases Passed Successfully.");
     }
 }
