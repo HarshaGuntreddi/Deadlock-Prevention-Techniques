@@ -14,6 +14,26 @@ This Java-based project implements efficient deadlock prevention techniques for 
 - **Resource Ordering with Priority**: Assigns resource locks based on predefined priorities.
 - **Wait-Die & Wound-Wait Schemes**: Implements classical deadlock avoidance strategies.
 - **Deadlock Detection Algorithm**: Uses cycle detection in a resource allocation graph.
+- **Resource Pooling**: Manages resources in a pool to prevent deadlocks.
+- **Hierarchical Locking**: Acquires locks in a hierarchical manner.
+- **Two-Phase Locking**: Acquires and releases locks in two phases.
+- **Lock Timeout with Retry**: Retries acquiring locks after a timeout.
+- **Deadlock Detection with Timeout**: Detects deadlocks within a specified timeout.
+- **Resource Reservation**: Reserves resources before allocation.
+- **Priority Inheritance**: Low-priority processes inherit the priority of high-priority processes.
+- **Banker's Algorithm**: Ensures safe resource allocation to avoid deadlocks.
+- **Aging Prevention**: Prevents starvation by aging processes.
+- **Random Backoff Prevention**: Uses random backoff to avoid contention.
+- **Exponential Backoff Prevention**: Uses exponential backoff to avoid contention.
+- **Fixed Backoff Prevention**: Uses fixed backoff to avoid contention.
+- **Priority Ceiling Prevention**: Uses priority ceilings to prevent priority inversion.
+- **Resource Limiting Prevention**: Limits the number of resources to prevent over-allocation.
+- **Timeout and Rollback**: Releases locks if a timeout occurs.
+- **Resource Pre-allocation**: Pre-allocates resources to prevent deadlocks.
+- **Resource Reclamation**: Reclaims resources after use.
+- **Resource Partitioning**: Partitions resources to prevent contention.
+- **Resource Sharing**: Shares resources among processes.
+
 
 ## 🛠️ Technologies Used
 - **Java**: Core programming language.
