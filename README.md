@@ -1,9 +1,9 @@
 # Deadlock Prevention Techniques
 
-## 📌 Description
+##  Description
 This Java-based project implements efficient deadlock prevention techniques for multi-threaded applications. It provides algorithms to detect, prevent, and resolve deadlocks using resource ordering, timeout mechanisms, and priority-based allocation, ensuring smooth concurrent execution.This project implements various **deadlock prevention techniques** in Java. It demonstrates strategies to avoid deadlocks in concurrent programming by implementing multiple algorithms and testing them under different scenarios.
 
-## 🔥 Features
+##  Features
 - **Hold and Wait Prevention**: Allocates all required resources at once.
 - **Circular Wait Prevention**: Enforces resource ordering to prevent circular dependencies.
 - **Timeout-Based Deadlock Prevention**: Uses timeouts while acquiring locks to avoid indefinite waiting.
@@ -58,7 +58,7 @@ This Java-based project implements efficient deadlock prevention techniques for 
    java DeadlockPreventionTest
    ```
 
-## 🤝 Contributing
+##  Contributing
 Contributions are welcome! Follow these steps:
 1. Fork the project.
 2. Create a new branch (`git checkout -b feature-branch`).
